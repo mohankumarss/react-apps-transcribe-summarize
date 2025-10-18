@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest>
+  <control namespace="CrmControls" constructor="ContactTimelineControl" version="1.0.0" display-name-key="ContactTimelineControl_Display_Key" description-key="ContactTimelineControl_Desc_Key" control-type="standard">
+    <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
+    <property name="contactId" display-name-key="ContactId_Display_Key" description-key="ContactId_Desc_Key" of-type="SingleLine.Text" usage="bound" required="true" />
+    <property name="timelineData" display-name-key="TimelineData_Display_Key" description-key="TimelineData_Desc_Key" of-type="Multiple" usage="input" required="false" />
+    <property name="maxItems" display-name-key="MaxItems_Display_Key" description-key="MaxItems_Desc_Key" of-type="Whole.None" usage="input" required="false" />
+    <property name="showFilters" display-name-key="ShowFilters_Display_Key" description-key="ShowFilters_Desc_Key" of-type="TwoOptions" usage="input" required="false" />
+    
+    <!-- resources node identifies the resources that the control uses -->
+    <resources>
+      <code path="index.ts" order="1"/>
+      <css path="styles.css" order="1" />
+      <!-- RESX files contain localized strings -->
+      <resx path="strings/ContactTimelineControl.1033.resx" version="1.0.0" />
+    </resources>
+    
+    <!-- feature-usage node declares which features this control intends to use -->
+    <feature-usage>
+      <uses-feature name="Device.captureAudio" required="false" />
+      <uses-feature name="Device.captureImage" required="false" />
+      <uses-feature name="Device.captureVideo" required="false" />
+      <uses-feature name="Device.getBarcodeValue" required="false" />
+      <uses-feature name="Device.getCurrentPosition" required="false" />
+      <uses-feature name="Device.pickFile" required="false" />
+      <uses-feature name="Utility" required="true" />
+      <uses-feature name="WebAPI" required="true" />
+    </feature-usage>
+  </control>
+</manifest>

@@ -1,0 +1,103 @@
+/**
+ * Shell Layout Styles
+ */
+
+.shell-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--theme-bg-primary, #f8fafc);
+  color: var(--theme-text-primary, #1e293b);
+}
+
+.shell-layout__body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.shell-layout__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: margin-left 0.3s ease;
+}
+
+.shell-layout__main.sidebar-collapsed {
+  margin-left: 0;
+}
+
+.shell-layout__main.mobile {
+  margin-left: 0 !important;
+}
+
+.shell-layout__content {
+  flex: 1;
+  padding: 1.5rem;
+  overflow: auto;
+  background-color: var(--theme-bg-primary, #ffffff);
+}
+
+/* Theme-specific styles */
+.shell-layout--crm {
+  --shell-header-bg: var(--crm-header-bg, #0078d4);
+  --shell-sidebar-bg: var(--crm-sidebar-bg, #f3f2f1);
+  --shell-content-bg: var(--crm-card-bg, #ffffff);
+  --shell-border-color: var(--theme-border-primary, #8a8886);
+  --shell-text-color: var(--theme-text-primary, #323130);
+}
+
+.shell-layout--mfe {
+  --shell-header-bg: var(--mfe-header-bg, #1e293b);
+  --shell-sidebar-bg: var(--mfe-sidebar-bg, #f1f5f9);
+  --shell-content-bg: var(--mfe-card-bg, #ffffff);
+  --shell-border-color: var(--theme-border-primary, #e2e8f0);
+  --shell-text-color: var(--theme-text-primary, #1e293b);
+}
+
+/* Mobile overlay */
+.mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .shell-layout.mobile .shell-layout__content {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .shell-layout.mobile .shell-layout__content {
+    padding: 0.75rem;
+  }
+}
+
+/* Accessibility and performance */
+@media (prefers-reduced-motion: reduce) {
+  .shell-layout__main,
+  .mobile-overlay {
+    transition: none;
+    animation: none;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .shell-layout {
+    border: 2px solid var(--theme-border-primary, #000000);
+  }
+}

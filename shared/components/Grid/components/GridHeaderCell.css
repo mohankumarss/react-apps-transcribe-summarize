@@ -1,0 +1,95 @@
+/* Grid Header Cell Specific Styles */
+.grid__header-cell {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Resizing State */
+.grid__header-cell--resizing {
+  user-select: none;
+  pointer-events: none;
+}
+
+.grid__header-cell--resizing .grid__resize-handle {
+  background-color: var(--grid-primary-color, var(--theme-primary-color, #0078d4));
+  width: 2px;
+  right: -1px;
+}
+
+/* Filterable State */
+.grid__header-cell--filterable {
+  position: relative;
+}
+
+.grid__header-cell--filterable:hover .grid__filter-toggle {
+  opacity: 1;
+}
+
+/* Sortable State */
+.grid__header-cell--sortable {
+  cursor: pointer;
+}
+
+.grid__header-cell--sortable:hover {
+  background-color: var(--theme-hover-background, #f3f2f1);
+}
+
+/* Active Sort State */
+.grid__header-cell--sorted {
+  background-color: var(--theme-bg-tertiary, #f0f0f0);
+}
+
+/* Column Type Specific Styles */
+.grid__header-cell--type-number .grid__header-title {
+  text-align: right;
+}
+
+.grid__header-cell--type-date .grid__header-title {
+  text-align: center;
+}
+
+.grid__header-cell--type-boolean .grid__header-title {
+  text-align: center;
+}
+
+/* Accessibility Enhancements */
+.grid__header-cell[aria-sort="ascending"] .grid__sort-icon::after {
+  content: " (ascending)";
+  position: absolute;
+  left: -9999px;
+}
+
+.grid__header-cell[aria-sort="descending"] .grid__sort-icon::after {
+  content: " (descending)";
+  position: absolute;
+  left: -9999px;
+}
+
+/* Touch Devices */
+@media (hover: none) and (pointer: coarse) {
+  .grid__resize-handle {
+    width: 8px;
+    right: -4px;
+  }
+  
+  .grid__filter-toggle {
+    opacity: 1;
+    padding: 4px 6px;
+  }
+  
+  .grid__header-cell {
+    min-height: 44px; /* Minimum touch target size */
+  }
+}
+
+/* Print Styles */
+@media print {
+  .grid__filter-toggle,
+  .grid__resize-handle {
+    display: none;
+  }
+  
+  .grid__header-filter {
+    display: none;
+  }
+}

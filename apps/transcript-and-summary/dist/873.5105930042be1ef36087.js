@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunk_crm_transcript_and_summary=self.webpackChunk_crm_transcript_and_summary||[]).push([[873],{5873:(r,t,a)=>{var e=a(7233);t.createRoot=e.createRoot,t.hydrateRoot=e.hydrateRoot}}]);
+//# sourceMappingURL=873.5105930042be1ef36087.js.map

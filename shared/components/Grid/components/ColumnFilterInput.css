@@ -1,0 +1,72 @@
+/* Column Filter Input */
+.column-filter-input,
+.column-filter-select {
+  width: 100%;
+  padding: var(--theme-spacing-xs, 4px) var(--theme-spacing-sm, 6px);
+  border: 1px solid var(--grid-border-color, var(--theme-border-color, #e1e5e9));
+  border-radius: var(--theme-border-radius-sm, 2px);
+  font-size: var(--theme-font-size-xs, 11px);
+  font-family: var(--theme-font-family, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif);
+  background: var(--theme-input-background, #ffffff);
+  color: var(--theme-text-color, #323130);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.column-filter-input:focus,
+.column-filter-select:focus {
+  border-color: var(--grid-primary-color, var(--theme-primary-color, #0078d4));
+  box-shadow: 0 0 0 1px var(--grid-primary-color, var(--theme-primary-color, #0078d4));
+}
+
+.column-filter-input::placeholder {
+  color: var(--theme-text-muted, #605e5c);
+  font-style: italic;
+  font-size: var(--theme-font-size-xs, 10px);
+}
+
+.column-filter-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23666' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  background-size: 8px;
+  padding-right: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .column-filter-input,
+  .column-filter-select {
+    font-size: var(--theme-font-size-xs, 10px);
+    padding: var(--theme-spacing-xs, 2px) var(--theme-spacing-xs, 4px);
+  }
+  
+  .column-filter-select {
+    background-size: 6px;
+    padding-right: 16px;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .column-filter-input:focus,
+  .column-filter-select:focus {
+    box-shadow: 0 0 0 2px var(--grid-primary-color, var(--theme-primary-color, #0078d4));
+  }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  .column-filter-input,
+  .column-filter-select {
+    background: var(--theme-input-background, #2d2d2d);
+    border-color: var(--theme-border-color, #404040);
+    color: var(--theme-text-color, #ffffff);
+  }
+  
+  .column-filter-select {
+    background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23ccc' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
+  }
+}

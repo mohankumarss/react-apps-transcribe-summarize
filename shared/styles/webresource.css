@@ -1,0 +1,15 @@
+/**
+ * Webresource-Specific Styles Entry Point
+ * 
+ * Optimized CSS imports for CRM webresource deployments.
+ * Only includes CRM theme styles to reduce bundle size.
+ */
+
+/* Base theme styles (common to all themes) */
+@import './themes/base-theme.css';
+
+/* Only CRM theme for webresource builds */
+@import './themes/dynamics-crm-theme.css';
+
+/* Component styles that use theme variables */
+@import './components.css';

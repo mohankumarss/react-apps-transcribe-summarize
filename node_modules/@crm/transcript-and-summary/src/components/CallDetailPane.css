@@ -1,0 +1,313 @@
+/**
+ * Call Detail Pane Styles
+ * 
+ * Styles for the collapsible side pane that displays CallDetailPage
+ * Responsive across desktop, tablet, and mobile devices
+ */
+
+/* Backdrop overlay */
+.call-detail-pane-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  animation: fadeIn 300ms ease-out;
+}
+
+/* Pane container - Desktop (> 1024px): 80% width */
+.call-detail-pane {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 80vw;
+  background: var(--theme-bg-primary, #ffffff);
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+  transform: translateZ(0);
+  animation: slideInRight 300ms ease-out;
+}
+
+/* Pane header */
+.pane-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: var(--theme-bg-secondary, #f8f9fa);
+  border-bottom: 1px solid var(--theme-border-primary, #d1d1d1);
+  flex-shrink: 0;
+}
+
+.pane-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--theme-text-primary, #323130);
+}
+
+/* Close button */
+.pane-close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--theme-text-secondary, #605e5c);
+  cursor: pointer;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 200ms ease-out;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.pane-close-button:hover {
+  background: var(--theme-bg-tertiary, #f0f0f0);
+  color: var(--theme-text-primary, #323130);
+}
+
+.pane-close-button:focus {
+  outline: 2px solid var(--theme-primary, #0078d4);
+  outline-offset: 2px;
+}
+
+.pane-close-button:active {
+  background: var(--theme-bg-quaternary, #e8e8e8);
+}
+
+/* Pane content */
+.pane-content {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Animations */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .call-detail-pane,
+  .call-detail-pane-backdrop {
+    animation: none;
+  }
+}
+
+/* Tablet layout (768px - 1024px) */
+@media (max-width: 1024px) {
+  .call-detail-pane {
+    width: 75%;
+    max-width: none;
+    box-shadow: var(--ds-shadow-lg);
+  }
+
+  .pane-header {
+    padding: var(--ds-spacing-lg);
+  }
+
+  .pane-title {
+    font-size: var(--ds-font-size-xl);
+  }
+
+  .pane-close-button {
+    min-height: 40px;
+    min-width: 40px;
+  }
+}
+
+/* Small Tablet layout (480px - 768px) */
+@media (max-width: 768px) {
+  .call-detail-pane {
+    width: 85%;
+    max-width: none;
+    animation: slideInRight 300ms ease-out;
+  }
+
+  .pane-header {
+    padding: var(--ds-spacing-md);
+  }
+
+  .pane-title {
+    font-size: var(--ds-font-size-lg);
+  }
+
+  .pane-close-button {
+    min-height: 40px;
+    min-width: 40px;
+    padding: 8px;
+  }
+}
+
+/* Mobile layout (< 480px) */
+@media (max-width: 480px) {
+  .call-detail-pane {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    animation: slideUpFromBottom 300ms ease-out;
+    border-radius: var(--ds-radius-lg) var(--ds-radius-lg) 0 0;
+  }
+
+  .pane-header {
+    padding: var(--ds-spacing-md);
+    border-bottom: 1px solid var(--ds-border-secondary);
+  }
+
+  .pane-title {
+    font-size: var(--ds-font-size-lg);
+    margin: 0;
+  }
+
+  .pane-close-button {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 8px;
+  }
+
+  .pane-content {
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  }
+
+  .pane-content .call-detail-page {
+    height: auto;
+    min-height: auto;
+  }
+}
+
+@keyframes slideUpFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Ensure CallDetailPage inside pane doesn't have full viewport height */
+.pane-content .call-detail-page {
+  height: 100%;
+  max-height: 100%;
+}
+
+.pane-content .call-detail-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--theme-border-primary, #d1d1d1);
+}
+
+.pane-content .header-info-horizontal {
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pane-content .info-item {
+  min-width: 120px;
+}
+
+.pane-content .info-label {
+  font-size: 11px;
+}
+
+.pane-content .info-value {
+  font-size: 13px;
+}
+
+/* Adjust column layout for pane */
+.pane-content .call-detail-body {
+  gap: 12px;
+  padding: 12px;
+}
+
+.pane-content .transcript-column,
+.pane-content .summary-column,
+.pane-content .notes-column {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pane-content .column-header {
+  padding: 12px 16px;
+}
+
+.pane-content .column-header h3 {
+  font-size: 14px;
+}
+
+.pane-content .column-actions {
+  gap: 6px;
+}
+
+.pane-content .search-input {
+  width: 100px;
+}
+
+.pane-content .transcript-content,
+.pane-content .summary-content,
+.pane-content .notes-content {
+  padding: 12px;
+  min-height: 200px;
+}
+
+/* Mobile adjustments for pane */
+@media (max-width: 480px) {
+  .pane-content .call-detail-body {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .pane-content .column-header {
+    padding: 8px 12px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pane-content .column-actions {
+    justify-content: space-between;
+  }
+
+  .pane-content .search-input {
+    width: 100%;
+  }
+}
+

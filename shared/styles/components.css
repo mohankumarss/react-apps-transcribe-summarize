@@ -1,0 +1,524 @@
+/**
+ * Component Styles
+ *
+ * Simplified theme-aware component styles using CSS custom properties
+ */
+
+/* === BUTTON COMPONENT === */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--theme-spacing-sm, 8px);
+  padding: var(--theme-spacing-sm, 8px) var(--theme-spacing-md, 16px);
+  border: 1px solid transparent;
+  border-radius: var(--theme-border-radius, 4px);
+  font-family: var(--theme-font-family);
+  font-size: var(--theme-font-size-base, 14px);
+  font-weight: 500;
+  line-height: 1.5;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  user-select: none;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Button Variants */
+.button-primary {
+  background-color: var(--theme-primary);
+  color: var(--theme-primary-text);
+  border-color: var(--theme-primary);
+}
+
+.button-primary:hover:not(:disabled) {
+  background-color: var(--theme-primary-hover);
+  border-color: var(--theme-primary-hover);
+}
+
+.button-secondary {
+  background-color: var(--theme-secondary);
+  color: var(--theme-secondary-text);
+  border-color: var(--theme-secondary);
+}
+
+.button-secondary:hover:not(:disabled) {
+  background-color: var(--theme-secondary-hover);
+  border-color: var(--theme-secondary-hover);
+}
+
+.button-outline {
+  background-color: transparent;
+  color: var(--theme-primary);
+  border-color: var(--theme-primary);
+}
+
+.button-outline:hover:not(:disabled) {
+  background-color: var(--theme-primary);
+  color: var(--theme-primary-text);
+}
+
+.button-danger {
+  background-color: var(--theme-danger, #dc3545);
+  color: var(--theme-danger-text, #ffffff);
+  border-color: var(--theme-danger, #dc3545);
+}
+
+.button-danger:hover:not(:disabled) {
+  background-color: var(--theme-danger-hover, #c82333);
+  border-color: var(--theme-danger-hover, #c82333);
+}
+
+/* Button Sizes */
+.button-small {
+  padding: var(--theme-spacing-xs, 4px) var(--theme-spacing-sm, 8px);
+  font-size: var(--theme-font-size-sm, 12px);
+}
+
+.button-medium {
+  padding: var(--theme-spacing-sm, 8px) var(--theme-spacing-md, 16px);
+  font-size: var(--theme-font-size-base, 14px);
+}
+
+.button-large {
+  padding: var(--theme-spacing-md, 16px) var(--theme-spacing-lg, 24px);
+  font-size: var(--theme-font-size-lg, 16px);
+}
+
+/* Button Loading State */
+.button-loading {
+  position: relative;
+}
+
+.button-spinner {
+  animation: spin 1s linear infinite;
+  margin-right: var(--theme-spacing-xs, 4px);
+}
+
+.button-text-loading {
+  opacity: 0.7;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* === LOADING SPINNER COMPONENT === */
+.loading-spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--theme-spacing-sm, 8px);
+}
+
+.loading-spinner {
+  position: relative;
+  display: inline-block;
+}
+
+.loading-spinner-circle {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--theme-border-primary);
+  border-top: 2px solid var(--theme-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading-spinner-small .loading-spinner-circle {
+  width: 16px;
+  height: 16px;
+  border-width: 1px;
+}
+
+.loading-spinner-large .loading-spinner-circle {
+  width: 32px;
+  height: 32px;
+  border-width: 3px;
+}
+
+.loading-spinner-message {
+  font-family: var(--theme-font-family);
+  font-size: var(--theme-font-size-sm, 12px);
+  color: var(--theme-text-secondary);
+  text-align: center;
+}
+
+/* === THEME SWITCHER COMPONENT === */
+.theme-switcher {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--theme-spacing-sm, 8px);
+  font-family: var(--theme-font-family);
+}
+
+.theme-switcher-compact {
+  gap: var(--theme-spacing-xs, 4px);
+}
+
+/* === ERROR BOUNDARY COMPONENT === */
+.error-boundary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: var(--theme-spacing-lg, 24px);
+  background-color: var(--theme-bg-primary);
+  border: 1px solid var(--theme-border-error, #dc3545);
+  border-radius: var(--theme-border-radius, 4px);
+}
+
+.error-boundary-content {
+  text-align: center;
+  max-width: 500px;
+}
+
+.error-boundary-title {
+  font-family: var(--theme-font-family);
+  font-size: var(--theme-font-size-xl, 20px);
+  font-weight: 600;
+  color: var(--theme-text-error, #dc3545);
+  margin: 0 0 var(--theme-spacing-md, 16px) 0;
+}
+
+.error-boundary-message {
+  font-family: var(--theme-font-family);
+  font-size: var(--theme-font-size-base, 14px);
+  color: var(--theme-text-secondary);
+  margin: 0 0 var(--theme-spacing-lg, 24px) 0;
+  line-height: 1.5;
+}
+
+.error-boundary-actions {
+  display: flex;
+  gap: var(--theme-spacing-md, 16px);
+  justify-content: center;
+  margin-bottom: var(--theme-spacing-lg, 24px);
+}
+
+.error-boundary-details {
+  text-align: left;
+  margin-top: var(--theme-spacing-lg, 24px);
+  padding: var(--theme-spacing-md, 16px);
+  background-color: var(--theme-bg-secondary);
+  border-radius: var(--theme-border-radius, 4px);
+  border: 1px solid var(--theme-border-primary);
+}
+
+.error-boundary-details summary {
+  font-family: var(--theme-font-family);
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: var(--theme-spacing-sm, 8px);
+}
+
+.error-boundary-error {
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.error-boundary-error h4 {
+  margin: var(--theme-spacing-md, 16px) 0 var(--theme-spacing-sm, 8px) 0;
+  font-family: var(--theme-font-family);
+  font-size: var(--theme-font-size-sm, 12px);
+  color: var(--theme-text-primary);
+}
+
+.error-boundary-error pre {
+  background-color: var(--theme-bg-tertiary, #f8f9fa);
+  padding: var(--theme-spacing-sm, 8px);
+  border-radius: var(--theme-border-radius, 4px);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.simple-error-boundary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--theme-spacing-lg, 24px);
+  text-align: center;
+  background-color: var(--theme-bg-primary);
+  border: 1px solid var(--theme-border-error, #dc3545);
+  border-radius: var(--theme-border-radius, 4px);
+}
+
+.simple-error-boundary p {
+  font-family: var(--theme-font-family);
+  color: var(--theme-text-error, #dc3545);
+  margin: 0 0 var(--theme-spacing-md, 16px) 0;
+}
+
+.theme-switcher-lg {
+  font-size: var(--theme-font-size-lg);
+}
+
+/* Toggle variant */
+.theme-toggle-button {
+  display: flex;
+  align-items: center;
+  gap: var(--theme-spacing-xs);
+  padding: var(--theme-spacing-sm) var(--theme-spacing-md);
+  border: 1px solid var(--theme-border-primary);
+  border-radius: var(--theme-radius-base);
+  background-color: var(--theme-bg-primary);
+  color: var(--theme-text-primary);
+  cursor: pointer;
+  transition: all var(--theme-transition-base);
+  font-family: var(--theme-font-family);
+  font-size: inherit;
+}
+
+.theme-toggle-button:hover:not(.disabled) {
+  background-color: var(--theme-bg-secondary);
+  border-color: var(--theme-border-secondary);
+}
+
+.theme-toggle-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--theme-primary);
+}
+
+/* Buttons variant */
+.theme-switcher-buttons {
+  display: flex;
+  gap: var(--theme-spacing-xs);
+  padding: 2px;
+  background-color: var(--theme-bg-tertiary);
+  border-radius: var(--theme-radius-lg);
+}
+
+.theme-button {
+  display: flex;
+  align-items: center;
+  gap: var(--theme-spacing-xs);
+  padding: var(--theme-spacing-xs) var(--theme-spacing-md);
+  border: none;
+  border-radius: var(--theme-radius-base);
+  background-color: transparent;
+  color: var(--theme-text-secondary);
+  cursor: pointer;
+  transition: all var(--theme-transition-base);
+  font-family: var(--theme-font-family);
+  font-size: inherit;
+}
+
+.theme-button:hover:not(.disabled) {
+  background-color: var(--theme-bg-primary);
+  color: var(--theme-text-primary);
+}
+
+.theme-button.active {
+  background-color: var(--theme-primary);
+  color: var(--theme-text-inverse);
+}
+
+.theme-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--theme-primary);
+}
+
+/* Dropdown variant */
+.theme-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--theme-spacing-sm);
+  padding: var(--theme-spacing-sm) var(--theme-spacing-md);
+  border: 1px solid var(--theme-border-primary);
+  border-radius: var(--theme-radius-base);
+  background-color: var(--theme-bg-primary);
+  color: var(--theme-text-primary);
+  cursor: pointer;
+  transition: all var(--theme-transition-base);
+  font-family: var(--theme-font-family);
+  font-size: inherit;
+  min-width: 140px;
+}
+
+.theme-dropdown-trigger:hover:not(.disabled) {
+  background-color: var(--theme-bg-secondary);
+  border-color: var(--theme-border-secondary);
+}
+
+.theme-dropdown-trigger:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--theme-primary);
+}
+
+.theme-dropdown-arrow {
+  font-size: 0.75em;
+  transition: transform var(--theme-transition-base);
+  margin-left: auto;
+}
+
+.theme-dropdown-trigger.open .theme-dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.theme-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: var(--theme-spacing-xs);
+  background-color: var(--theme-bg-primary);
+  border: 1px solid var(--theme-border-primary);
+  border-radius: var(--theme-radius-lg);
+  box-shadow: var(--theme-shadow-lg);
+  z-index: var(--theme-z-dropdown);
+  overflow: hidden;
+  min-width: 200px;
+}
+
+.theme-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: var(--theme-spacing-md);
+  width: 100%;
+  padding: var(--theme-spacing-md) var(--theme-spacing-lg);
+  border: none;
+  background-color: transparent;
+  color: var(--theme-text-primary);
+  cursor: pointer;
+  transition: all var(--theme-transition-base);
+  text-align: left;
+  font-family: var(--theme-font-family);
+  font-size: inherit;
+}
+
+.theme-dropdown-item:hover {
+  background-color: var(--theme-bg-secondary);
+}
+
+.theme-dropdown-item.active {
+  background-color: var(--theme-primary-light);
+  color: var(--theme-primary);
+}
+
+.theme-dropdown-item:focus {
+  outline: none;
+  background-color: var(--theme-bg-secondary);
+}
+
+.theme-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.theme-label {
+  font-weight: var(--theme-font-weight-medium);
+}
+
+.theme-description {
+  font-size: var(--theme-font-size-sm);
+  color: var(--theme-text-secondary);
+  line-height: var(--theme-line-height-tight);
+}
+
+.theme-check {
+  color: var(--theme-primary);
+  font-weight: var(--theme-font-weight-bold);
+  font-size: 1.2em;
+}
+
+.theme-dropdown-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: calc(var(--theme-z-dropdown) - 1);
+  background: transparent;
+}
+
+/* Disabled state */
+.theme-switcher .disabled {
+  opacity: 0.6;
+  cursor: not-allowed !important;
+  pointer-events: none;
+}
+
+/* Error indicator */
+.theme-error {
+  color: var(--theme-error);
+  font-size: 1.2em;
+  cursor: help;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Loading state */
+.theme-switcher.loading {
+  opacity: 0.7;
+}
+
+.theme-switcher.loading * {
+  pointer-events: none;
+}
+
+/* Icon styles */
+.theme-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1em;
+  line-height: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .theme-switcher-dropdown .theme-dropdown-menu {
+    position: fixed;
+    top: auto;
+    bottom: var(--theme-spacing-lg);
+    left: var(--theme-spacing-md);
+    right: var(--theme-spacing-md);
+    margin-top: 0;
+  }
+  
+  .theme-switcher-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .theme-button {
+    justify-content: flex-start;
+    width: 100%;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .theme-switcher button {
+    border-width: 2px;
+  }
+  
+  .theme-dropdown-menu {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .theme-switcher *,
+  .theme-switcher *::before,
+  .theme-switcher *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,15 @@
+/**
+ * Main Styles Entry Point
+ * 
+ * Imports all theme-related styles
+ */
+
+/* Base theme styles (common to all themes) */
+@import './themes/base-theme.css';
+
+/* Complete theme files with all ZB Champion styling */
+@import './themes/dynamics-crm-theme.css';
+@import './themes/zb-champion-mfe-theme.css';
+
+/* Component styles that use theme variables */
+@import './components.css';

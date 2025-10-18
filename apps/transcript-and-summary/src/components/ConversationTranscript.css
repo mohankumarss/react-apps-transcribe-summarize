@@ -1,0 +1,251 @@
+/* Conversation Transcript Styles */
+.conversation-transcript {
+  height: 100%;
+  overflow: hidden;
+  background: var(--theme-bg-primary, #ffffff);
+}
+
+.conversation-container {
+  height: 100%;
+  overflow-y: auto;
+  padding: var(--theme-spacing-md, 16px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--theme-spacing-md, 16px);
+}
+
+/* Message Styles */
+.message {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--theme-spacing-sm, 8px);
+  max-width: 85%;
+  animation: messageSlideIn 0.3s ease-out;
+}
+
+.message--customer {
+  align-self: flex-start;
+  flex-direction: row;
+}
+
+.message--agent {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+/* Message Avatar */
+.message-avatar {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  background: var(--theme-bg-secondary, #f3f2f1);
+  border: 2px solid var(--theme-border-color, #e1e5e9);
+}
+
+.message--customer .message-avatar {
+  background: var(--theme-customer-bg, #e3f2fd);
+  border-color: var(--theme-customer-border, #2196f3);
+}
+
+.message--agent .message-avatar {
+  background: var(--theme-agent-bg, #f3e5f5);
+  border-color: var(--theme-agent-border, #9c27b0);
+}
+
+/* Message Content */
+.message-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.message--customer .message-content {
+  margin-left: var(--theme-spacing-xs, 4px);
+}
+
+.message--agent .message-content {
+  margin-right: var(--theme-spacing-xs, 4px);
+  text-align: right;
+}
+
+/* Message Header */
+.message-header {
+  display: flex;
+  align-items: center;
+  gap: var(--theme-spacing-xs, 4px);
+  margin-bottom: var(--theme-spacing-xs, 4px);
+}
+
+.message--agent .message-header {
+  justify-content: flex-end;
+}
+
+.speaker-name {
+  font-size: var(--theme-font-size-sm, 12px);
+  font-weight: 600;
+  color: var(--theme-text-secondary, #605e5c);
+}
+
+.message--customer .speaker-name {
+  color: var(--theme-customer-text, #1976d2);
+}
+
+.message--agent .speaker-name {
+  color: var(--theme-agent-text, #7b1fa2);
+}
+
+.message-time {
+  font-size: var(--theme-font-size-xs, 10px);
+  color: var(--theme-text-muted, #8a8886);
+}
+
+/* Message Text */
+.message-text {
+  background: var(--theme-bg-primary, #ffffff);
+  border: 1px solid var(--theme-border-color, #e1e5e9);
+  border-radius: var(--theme-border-radius, 8px);
+  padding: var(--theme-spacing-sm, 8px) var(--theme-spacing-md, 12px);
+  font-size: var(--theme-font-size, 14px);
+  line-height: 1.4;
+  color: var(--theme-text-primary, #323130);
+  word-wrap: break-word;
+  box-shadow: 0 1px 3px var(--theme-shadow-light, rgba(0, 0, 0, 0.1));
+}
+
+.message--customer .message-text {
+  background: linear-gradient(135deg, var(--theme-customer-message-bg, #e3f2fd) 0%, var(--theme-customer-message-bg, #e3f2fd) 100%);
+  border-color: var(--theme-customer-message-border, #2196f3);
+  border-bottom-left-radius: 4px;
+  border-left: 4px solid var(--theme-customer-message-border, #2196f3);
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.15);
+}
+
+.message--customer .message-text:hover {
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.25);
+  transform: translateY(-1px);
+  transition: all 200ms ease-out;
+}
+
+.message--agent .message-text {
+  background: linear-gradient(135deg, var(--theme-agent-message-bg, #f3e5f5) 0%, var(--theme-agent-message-bg, #f3e5f5) 100%);
+  border-color: var(--theme-agent-message-border, #9c27b0);
+  border-bottom-right-radius: 4px;
+  border-right: 4px solid var(--theme-agent-message-border, #9c27b0);
+  box-shadow: 0 2px 8px rgba(156, 39, 176, 0.15);
+}
+
+.message--agent .message-text:hover {
+  box-shadow: 0 4px 12px rgba(156, 39, 176, 0.25);
+  transform: translateY(-1px);
+  transition: all 200ms ease-out;
+}
+
+/* Search Highlighting */
+.search-highlight {
+  background-color: var(--theme-highlight-bg, #fff59d);
+  color: var(--theme-highlight-text, #333);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-weight: 700;
+  box-shadow: 0 0 0 2px rgba(255, 235, 59, 0.3);
+  animation: highlightPulse 0.5s ease-out;
+}
+
+@keyframes highlightPulse {
+  0% {
+    box-shadow: 0 0 0 6px rgba(255, 235, 59, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 2px rgba(255, 235, 59, 0.3);
+  }
+}
+
+/* No Messages State */
+.no-messages {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--theme-text-muted, #8a8886);
+  font-style: italic;
+}
+
+/* Animation */
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .message {
+    max-width: 95%;
+  }
+  
+  .message-avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+  
+  .message-text {
+    padding: var(--theme-spacing-xs, 6px) var(--theme-spacing-sm, 8px);
+    font-size: var(--theme-font-size-sm, 12px);
+  }
+  
+  .conversation-container {
+    padding: var(--theme-spacing-sm, 8px);
+    gap: var(--theme-spacing-sm, 8px);
+  }
+}
+
+/* Theme-specific overrides */
+.theme-crm .message--customer .message-text {
+  background: var(--crm-customer-bg, #deecf9);
+  border-color: var(--crm-customer-border, #0078d4);
+}
+
+.theme-crm .message--agent .message-text {
+  background: var(--crm-agent-bg, #f3f2f1);
+  border-color: var(--crm-agent-border, #605e5c);
+}
+
+.theme-mfe .message--customer .message-text {
+  background: var(--mfe-customer-bg, rgba(94, 16, 177, 0.05));
+  border-color: var(--mfe-customer-border, #5e10b1);
+}
+
+.theme-mfe .message--agent .message-text {
+  background: var(--mfe-agent-bg, #f2f2f8);
+  border-color: var(--mfe-agent-border, #646068);
+}
+
+/* MFE Theme - Colors now centralized in zb-champion-mfe-theme.css */
+
+/* Scrollbar Styling */
+.conversation-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.conversation-container::-webkit-scrollbar-track {
+  background: var(--theme-bg-secondary, #f3f2f1);
+}
+
+.conversation-container::-webkit-scrollbar-thumb {
+  background: var(--theme-border-color, #e1e5e9);
+  border-radius: 3px;
+}
+
+.conversation-container::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-text-muted, #8a8886);
+}

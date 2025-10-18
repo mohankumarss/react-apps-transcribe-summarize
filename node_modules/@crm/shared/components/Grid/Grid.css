@@ -1,0 +1,600 @@
+/* Grid Container */
+.grid {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: var(--theme-bg-primary, #ffffff);
+  border: 1px solid var(--theme-border-color, #e1e5e9);
+  border-radius: var(--theme-border-radius, 8px);
+  font-family: var(--theme-font-family, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif);
+  overflow: hidden;
+  box-shadow: 0 2px 8px var(--theme-shadow, rgba(0, 0, 0, 0.1));
+}
+
+/* Simple Grid Styles */
+.grid--simple .grid__header {
+  background: var(--grid-header-bg, var(--theme-bg-secondary, #f8f9fa));
+  border-bottom: 2px solid var(--grid-border-color, var(--theme-border-color, #e1e5e9));
+}
+
+/* Default header row - fallback for non-responsive */
+.grid--simple .grid__header-row {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+}
+
+/* Responsive Grid Layout - higher specificity to override flex */
+.grid--simple.grid--desktop .grid__header-row,
+.grid--simple.grid--desktop .grid__filter-row,
+.grid--simple.grid--desktop .grid__row,
+.grid--simple.grid--tablet .grid__header-row,
+.grid--simple.grid--tablet .grid__filter-row,
+.grid--simple.grid--tablet .grid__row,
+.grid--simple.grid--mobile .grid__header-row,
+.grid--simple.grid--mobile .grid__filter-row,
+.grid--simple.grid--mobile .grid__row {
+  display: grid !important;
+  grid-template-columns: var(--grid-template-columns, auto);
+  align-items: center;
+}
+
+.grid--simple .grid__header-cell {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-right: 1px solid var(--grid-border-color, var(--theme-border-color, #e1e5e9));
+  font-weight: 600;
+  color: var(--theme-text-primary, #323130);
+  font-size: 14px;
+  min-width: 0; /* Allow flex shrinking */
+  overflow: hidden;
+}
+
+/* Responsive header cell adjustments */
+.grid--simple.grid--mobile .grid__header-cell {
+  padding: 6px 8px;
+  font-size: 12px;
+}
+
+.grid--simple.grid--tablet .grid__header-cell {
+  padding: 7px 10px;
+  font-size: 13px;
+}
+
+.grid--simple .grid__header-cell:last-child {
+  border-right: none;
+}
+
+.grid--simple .grid__header-cell--sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.grid--simple .grid__header-cell--sortable:hover {
+  background-color: var(--theme-hover-background, #f3f2f1);
+}
+
+.grid--simple .grid__header-cell--sorted {
+  background-color: var(--theme-bg-tertiary, #f0f0f0);
+}
+
+.grid--simple .grid__header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: var(--theme-spacing-xs, 4px);
+}
+
+.grid--simple .grid__header-title {
+  flex: 1;
+  font-weight: 600;
+  color: var(--theme-text-primary, #323130);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.grid--simple .grid__filter-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: var(--theme-border-radius-sm, 2px);
+  font-size: 10px;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+  color: var(--theme-text-secondary, #605e5c);
+}
+
+.grid--simple .grid__filter-toggle:hover {
+  opacity: 1;
+  background-color: var(--theme-hover-background, #f3f2f1);
+  color: var(--grid-primary-color, var(--theme-primary-color, #0078d4));
+}
+
+/* Filter Row */
+.grid--simple .grid__filter-row {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  background: var(--theme-bg-secondary, #f8f9fa);
+  border-bottom: 1px solid var(--grid-border-color, var(--theme-border-color, #e1e5e9));
+}
+
+.grid--simple .grid__filter-cell {
+  display: flex;
+  align-items: center;
+  padding: var(--theme-spacing-xs, 4px) var(--theme-spacing-sm, 8px);
+  border-right: 1px solid var(--grid-border-color, var(--theme-border-color, #e1e5e9));
+  min-height: inherit;
+}
+
+.grid--simple .grid__filter-cell:last-child {
+  border-right: none;
+}
+
+.grid--simple .grid__clear-filters-btn {
+  width: 100%;
+  padding: var(--theme-spacing-xs, 4px) var(--theme-spacing-sm, 6px);
+  background: var(--theme-secondary-color, #605e5c);
+  color: var(--theme-button-text, #ffffff);
+  border: 1px solid var(--theme-secondary-color, #605e5c);
+  border-radius: var(--theme-border-radius-sm, 2px);
+  font-size: var(--theme-font-size-xs, 11px);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.grid--simple .grid__clear-filters-btn:hover {
+  background: var(--theme-secondary-hover, #484644);
+  border-color: var(--theme-secondary-hover, #484644);
+}
+
+/* Selection Column */
+.grid--simple .grid__header-cell--selection,
+.grid--simple .grid__filter-cell--selection,
+.grid--simple .grid__cell--selection {
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
+  justify-content: center;
+  padding: var(--theme-spacing-xs, 4px);
+}
+
+.grid--simple .grid__header-cell--selection input[type="checkbox"],
+.grid--simple .grid__cell--selection input[type="checkbox"],
+.grid--simple .grid__cell--selection input[type="radio"] {
+  margin: 0;
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.grid--simple .grid__header-cell--selection input[type="checkbox"]:focus,
+.grid--simple .grid__cell--selection input[type="checkbox"]:focus,
+.grid--simple .grid__cell--selection input[type="radio"]:focus {
+  outline: 2px solid var(--grid-primary-color, var(--theme-primary-color, #0078d4));
+  outline-offset: 2px;
+}
+
+/* Row States */
+.grid--simple .grid__row--selected {
+  background-color: var(--grid-selected-bg, var(--theme-selected-background, #deecf9)) !important;
+}
+
+.grid--simple .grid__row--selected:hover {
+  background-color: var(--grid-selected-bg, var(--theme-selected-background, #deecf9)) !important;
+}
+
+.grid--simple .grid__row--focused {
+  outline: 2px solid var(--grid-primary-color, var(--theme-primary-color, #0078d4));
+  outline-offset: -2px;
+  z-index: 1;
+}
+
+/* Keyboard Navigation */
+.grid--simple .grid__body:focus {
+  outline: 2px solid var(--grid-primary-color, var(--theme-primary-color, #0078d4));
+  outline-offset: -2px;
+}
+
+.grid--simple .grid__body:focus .grid__row--focused {
+  outline: 2px solid var(--theme-accent-color, #ff6b35);
+  outline-offset: -2px;
+}
+
+.grid--simple .grid__body {
+  flex: 1;
+  overflow: auto;
+}
+
+/* Default row layout - fallback for non-responsive */
+.grid--simple .grid__row {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  border-bottom: 1px solid var(--grid-border-color, var(--theme-border-color, #e1e5e9));
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.grid--simple .grid__row:hover {
+  background-color: var(--grid-hover-bg, var(--theme-hover-background, #f5f5f5));
+}
+
+.grid--simple .grid__cell {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-right: 1px solid var(--grid-border-color, var(--theme-border-color, #e1e5e9));
+  min-height: inherit;
+  min-width: 0; /* Allow flex shrinking */
+  overflow: hidden;
+}
+
+/* Responsive cell adjustments */
+.grid--simple.grid--mobile .grid__cell {
+  padding: 6px 8px;
+  font-size: 12px;
+}
+
+.grid--simple.grid--tablet .grid__cell {
+  padding: 7px 10px;
+  font-size: 13px;
+}
+
+.grid--simple .grid__cell:last-child {
+  border-right: none;
+}
+
+.grid--simple .grid__cell-content {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.grid--simple .grid__loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--theme-loading-overlay, rgba(255, 255, 255, 0.8));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.grid--simple .grid__empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: var(--theme-text-muted, #8a8886);
+  font-style: italic;
+}
+
+/* Theme Variants */
+.grid--theme-crm {
+  /* Grid colors now inherit from centralized theme in dynamics-crm-theme.css */
+  --grid-primary-color: var(--theme-primary);
+  --grid-secondary-color: var(--theme-secondary);
+  --grid-border-color: var(--theme-border-color);
+  --grid-header-bg: var(--theme-bg-secondary);
+  --grid-hover-bg: var(--theme-hover-background);
+  --grid-selected-bg: var(--theme-selected-background);
+}
+
+.grid--theme-mfe {
+  /* Grid colors now inherit from centralized theme in zb-champion-mfe-theme.css */
+  --grid-primary-color: var(--theme-primary);
+  --grid-secondary-color: var(--theme-secondary);
+  --grid-border-color: var(--theme-border-color);
+  --grid-header-bg: var(--theme-bg-secondary);
+  --grid-hover-bg: var(--theme-hover-background);
+  --grid-selected-bg: var(--theme-selected-background);
+}
+
+/* Grid Container */
+.grid__container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  position: relative;
+}
+
+/* Body Container */
+.grid__body-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Responsive Breakpoints */
+.grid--mobile {
+  font-size: 14px;
+}
+
+.grid--mobile .grid__container {
+  border-radius: 0;
+}
+
+.grid--tablet {
+  font-size: 15px;
+}
+
+.grid--desktop {
+  font-size: 16px;
+}
+
+/* Compact Mode */
+.grid--compact,
+.grid--compact-mode {
+  --grid-row-height: 40px;
+  --grid-header-height: 36px;
+  --grid-cell-padding: 6px 8px;
+  --grid-header-padding: 6px 8px;
+}
+
+.grid--compact .grid__header-cell,
+.grid--compact-mode .grid__header-cell {
+  font-size: 12px;
+}
+
+.grid--compact .grid__cell,
+.grid--compact-mode .grid__cell {
+  font-size: 12px;
+}
+
+/* Stacked Layout for Mobile */
+.grid--stacked .grid__body {
+  display: block;
+}
+
+.grid--stacked .grid__row {
+  display: block;
+  border: 1px solid var(--grid-border-color);
+  border-radius: var(--theme-border-radius-sm, 4px);
+  margin-bottom: var(--theme-spacing-sm, 8px);
+  padding: var(--theme-spacing-md, 12px);
+  background: var(--theme-bg-primary, #ffffff);
+}
+
+.grid--stacked .grid__cell {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--theme-spacing-xs, 4px) 0;
+  border-bottom: 1px solid var(--theme-border-light, #f3f2f1);
+}
+
+.grid--stacked .grid__cell:last-child {
+  border-bottom: none;
+}
+
+.grid--stacked .grid__cell::before {
+  content: attr(data-label);
+  font-weight: 600;
+  color: var(--theme-text-secondary, #605e5c);
+  font-size: var(--theme-font-size-sm, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Zebra Striping */
+.grid--zebra .grid__row:nth-child(even) {
+  background-color: var(--theme-bg-secondary, #f8f9fa);
+}
+
+/* Bordered */
+.grid--bordered .grid__header-cell,
+.grid--bordered .grid__cell {
+  border-right: 1px solid var(--grid-border-color);
+}
+
+.grid--bordered .grid__header-cell:last-child,
+.grid--bordered .grid__cell:last-child {
+  border-right: none;
+}
+
+.grid--bordered .grid__row {
+  border-bottom: 1px solid var(--grid-border-color);
+}
+
+/* Sticky Header */
+.grid--sticky-header .grid__header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--grid-header-bg);
+  box-shadow: 0 2px 4px var(--theme-shadow, rgba(0, 0, 0, 0.1));
+}
+
+/* Sticky Columns */
+.grid--sticky-columns .grid__cell--pinned-left,
+.grid--sticky-columns .grid__header-cell--pinned-left {
+  position: sticky;
+  left: 0;
+  z-index: 5;
+  background: inherit;
+  box-shadow: 2px 0 4px var(--theme-shadow, rgba(0, 0, 0, 0.1));
+}
+
+.grid--sticky-columns .grid__cell--pinned-right,
+.grid--sticky-columns .grid__header-cell--pinned-right {
+  position: sticky;
+  right: 0;
+  z-index: 5;
+  background: inherit;
+  box-shadow: -2px 0 4px var(--theme-shadow, rgba(0, 0, 0, 0.1));
+}
+
+/* Loading State */
+.grid--loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.grid--loading .grid__body {
+  filter: blur(1px);
+}
+
+/* Selection Styles */
+.grid__row--selected {
+  background-color: var(--grid-selected-bg) !important;
+}
+
+.grid__row--selected:hover {
+  background-color: var(--grid-selected-bg) !important;
+}
+
+/* Hover Effects */
+.grid__row:hover {
+  background-color: var(--grid-hover-bg);
+  cursor: pointer;
+}
+
+.grid__row--selected:hover {
+  background-color: var(--grid-selected-bg);
+}
+
+/* Focus Styles */
+.grid__cell:focus,
+.grid__header-cell:focus {
+  outline: 2px solid var(--grid-primary-color);
+  outline-offset: -2px;
+}
+
+/* Editing Styles */
+.grid__cell--editing {
+  background-color: var(--theme-bg-primary, #ffffff);
+  box-shadow: inset 0 0 0 2px var(--grid-primary-color);
+}
+
+/* Expandable Rows */
+.grid__row--expandable .grid__expand-icon {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.grid__row--expanded .grid__expand-icon {
+  transform: rotate(90deg);
+}
+
+.grid__expanded-content {
+  background: var(--theme-bg-secondary, #f8f9fa);
+  border-top: 1px solid var(--grid-border-color);
+  padding: var(--theme-spacing-md, 16px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.grid__row {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Scrollbar Styling */
+.grid__body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.grid__body::-webkit-scrollbar-track {
+  background: var(--theme-bg-secondary, #f3f2f1);
+}
+
+.grid__body::-webkit-scrollbar-thumb {
+  background: var(--grid-border-color);
+  border-radius: 4px;
+}
+
+.grid__body::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-text-muted, #8a8886);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .grid {
+    border-width: 2px;
+  }
+  
+  .grid__row:hover {
+    background-color: var(--theme-text-primary, #323130);
+    color: var(--theme-bg-primary, #ffffff);
+  }
+  
+  .grid__cell:focus,
+  .grid__header-cell:focus {
+    outline-width: 3px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .grid__row {
+    animation: none;
+  }
+  
+  .grid__expand-icon {
+    transition: none;
+  }
+  
+  * {
+    transition: none !important;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .grid {
+    box-shadow: none;
+    border: 1px solid var(--theme-print-border, #000);
+  }
+  
+  .grid__toolbar,
+  .grid__pagination {
+    display: none;
+  }
+  
+  .grid__body {
+    overflow: visible;
+    height: auto;
+  }
+  
+  .grid__row {
+    break-inside: avoid;
+  }
+  
+  .grid--zebra .grid__row:nth-child(even) {
+    background-color: var(--theme-print-zebra, #f5f5f5);
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .grid {
+    --theme-bg-primary: #1e1e1e;
+    --theme-bg-secondary: #2d2d2d;
+    --theme-text-primary: #ffffff;
+    --theme-text-secondary: #cccccc;
+    --theme-border-color: #404040;
+    --grid-hover-bg: #333333;
+    --grid-selected-bg: #0d47a1;
+  }
+}

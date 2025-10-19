@@ -1,1 +1,4 @@
 node_modules
+apps/transcript-and-summary/dist
+apps/transcript-and-summary/dist/*
+apps/transcript-and-summary/dist/*.*

@@ -1,0 +1,191 @@
+/**
+ * Floating Tab Bar Styles
+ * 
+ * Floating tab bar that appears at the bottom of the screen
+ * when the pane is closed but tabs are still open
+ * Allows users to manage and switch between open calls
+ */
+
+/* Floating tab bar container */
+.floating-tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 0;
+  padding: 0 12px;
+  background: var(--theme-bg-secondary, #f8f9fa);
+  border-top: 1px solid var(--theme-border-primary, #d1d1d1);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 998;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  max-height: 56px;
+  animation: slideUpFromBottom 300ms ease-out;
+}
+
+/* Individual floating tab */
+.floating-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 12px;
+  background: transparent;
+  border: none;
+  border-top: 3px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: all 200ms ease-out;
+  color: var(--theme-text-secondary, #605e5c);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  min-height: 44px;
+  position: relative;
+}
+
+.floating-tab:hover {
+  background: var(--theme-bg-tertiary, #f0f0f0);
+  color: var(--theme-text-primary, #323130);
+}
+
+.floating-tab:focus {
+  outline: 2px solid var(--theme-primary, #0078d4);
+  outline-offset: -2px;
+}
+
+/* Active floating tab */
+.floating-tab--active {
+  color: var(--theme-primary, #0078d4);
+  border-top-color: var(--theme-primary, #0078d4);
+  background: var(--theme-bg-primary, #ffffff);
+}
+
+.floating-tab--active:hover {
+  background: var(--theme-bg-primary, #ffffff);
+}
+
+/* Floating tab label */
+.floating-tab-label {
+  flex: 0 1 auto;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Floating tab close button */
+.floating-tab-close-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: inherit;
+  cursor: pointer;
+  padding: 4px;
+  min-width: 24px;
+  min-height: 24px;
+  border-radius: 3px;
+  transition: all 150ms ease-out;
+  flex-shrink: 0;
+}
+
+.floating-tab-close-button:hover {
+  background: var(--theme-bg-quaternary, #e8e8e8);
+  color: var(--theme-text-primary, #323130);
+}
+
+.floating-tab-close-button:focus {
+  outline: 2px solid var(--theme-primary, #0078d4);
+  outline-offset: -2px;
+}
+
+/* Slide up animation */
+@keyframes slideUpFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Slide down animation */
+@keyframes slideDownToBottom {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+/* Tablet layout (768px - 1024px) */
+@media (max-width: 1024px) {
+  .floating-tab {
+    padding: 10px 10px;
+    font-size: 13px;
+    min-height: 40px;
+  }
+
+  .floating-tab-label {
+    max-width: 120px;
+  }
+}
+
+/* Small Tablet layout (480px - 768px) */
+@media (max-width: 768px) {
+  .floating-tab {
+    padding: 8px 8px;
+    font-size: 12px;
+    min-height: 36px;
+  }
+
+  .floating-tab-label {
+    max-width: 100px;
+  }
+}
+
+/* Mobile layout (< 480px) */
+@media (max-width: 480px) {
+  .floating-tab-bar {
+    padding: 0 8px;
+  }
+
+  .floating-tab {
+    padding: 8px 6px;
+    font-size: 11px;
+    min-height: 36px;
+  }
+
+  .floating-tab-label {
+    max-width: 80px;
+  }
+
+  .floating-tab-close-button {
+    min-width: 20px;
+    min-height: 20px;
+    font-size: 14px;
+  }
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .floating-tab-bar {
+    animation: none;
+  }
+
+  .floating-tab,
+  .floating-tab-close-button {
+    transition: none;
+  }
+}
+

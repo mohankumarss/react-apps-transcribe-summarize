@@ -5,6 +5,7 @@ import { CallRecord } from '../services/mockDataService';
 import { getCallRecordsService } from '../services/callRecordsService';
 import { logger } from '@shared/utils';
 import { CallDetailPane } from './CallDetailPane';
+import { FloatingTabBar } from './FloatingTabBar';
 import './CallLogPage.css';
 
 // Define types for our grid (currently unused but ready for future features)
@@ -24,9 +25,10 @@ export const CallLogPage: React.FC<CallLogPageProps> = ({ onViewCall }) => {
   const [savingNotes, setSavingNotes] = useState<Set<string>>(new Set());
   // Local notes state for immediate UI updates without affecting other rows
   const [localNotes, setLocalNotes] = useState<Record<string, string>>({});
-  // Pane state for collapsible detail view
+  // Pane state for collapsible detail view with tabbed interface
   const [detailPaneOpen, setDetailPaneOpen] = useState(false);
-  const [selectedCallForPane, setSelectedCallForPane] = useState<CallRecord | null>(null);
+  const [openCalls, setOpenCalls] = useState<CallRecord[]>([]);
+  const [activeCallId, setActiveCallId] = useState<string | null>(null);
 
 
 
@@ -142,18 +144,71 @@ export const CallLogPage: React.FC<CallLogPageProps> = ({ onViewCall }) => {
     logger.info('Call record opened via double-click', { callId: row.id });
   }, [onViewCall]);
 
-  // Handle open in pane
+  // Handle open in pane - add to tabs
   const handleOpenInPane = useCallback((row: CallRecord) => {
-    setSelectedCallForPane(row);
+    setOpenCalls(prev => {
+      // Check if call is already open
+      const exists = prev.find(call => call.id === row.id);
+      if (exists) {
+        // If already open, just set it as active
+        setActiveCallId(row.id);
+        return prev;
+      }
+      // Add new call to tabs
+      return [...prev, row];
+    });
+    // Set as active and open pane
+    setActiveCallId(row.id);
     setDetailPaneOpen(true);
     logger.info('Call record opened in pane', { callId: row.id });
   }, []);
 
-  // Handle close pane
+  // Handle minimize pane (close pane but keep tabs in memory)
+  const handleMinimizePane = useCallback(() => {
+    setDetailPaneOpen(false);
+    logger.info('Call detail pane minimized');
+  }, []);
+
+  // Handle close pane (close pane and clear all tabs)
   const handleClosePane = useCallback(() => {
     setDetailPaneOpen(false);
-    setSelectedCallForPane(null);
-    logger.info('Call detail pane closed');
+    setOpenCalls([]);
+    setActiveCallId(null);
+    logger.info('Call detail pane closed and all tabs cleared');
+  }, []);
+
+  // Handle close individual tab
+  const handleCloseTab = useCallback((callId: string) => {
+    setOpenCalls(prev => {
+      const filtered = prev.filter(call => call.id !== callId);
+
+      // If closing the active tab, switch to first remaining tab
+      if (activeCallId === callId) {
+        if (filtered.length > 0) {
+          setActiveCallId(filtered[0].id);
+        } else {
+          // No more tabs, close pane
+          setDetailPaneOpen(false);
+          setActiveCallId(null);
+        }
+      }
+
+      return filtered;
+    });
+    logger.info('Tab closed', { callId });
+  }, [activeCallId]);
+
+  // Handle switch active tab
+  const handleSwitchTab = useCallback((callId: string) => {
+    setActiveCallId(callId);
+    logger.info('Switched to tab', { callId });
+  }, []);
+
+  // Handle floating tab click (open pane with that call)
+  const handleFloatingTabClick = useCallback((callId: string) => {
+    setActiveCallId(callId);
+    setDetailPaneOpen(true);
+    logger.info('Floating tab clicked, opening pane', { callId });
   }, []);
 
   // Handle open in new tab
@@ -298,7 +353,7 @@ export const CallLogPage: React.FC<CallLogPageProps> = ({ onViewCall }) => {
           >
             ▤
           </span>
-          <span
+          {/* <span
             onClick={(e) => {
               e.stopPropagation();
               handleOpenInNewTab(row);
@@ -316,7 +371,7 @@ export const CallLogPage: React.FC<CallLogPageProps> = ({ onViewCall }) => {
             }}
           >
             ↗
-          </span>
+          </span> */}
         </div>
       )
     }
@@ -406,12 +461,26 @@ export const CallLogPage: React.FC<CallLogPageProps> = ({ onViewCall }) => {
         />
       </div>
 
-      {/* Call Detail Pane */}
+      {/* Call Detail Pane with Tabs */}
       <CallDetailPane
         isOpen={detailPaneOpen}
-        callRecord={selectedCallForPane}
+        openCalls={openCalls}
+        activeCallId={activeCallId}
         onClose={handleClosePane}
+        onMinimize={handleMinimizePane}
+        onCloseTab={handleCloseTab}
+        onSwitchTab={handleSwitchTab}
       />
+
+      {/* Floating Tab Bar - shown when pane is closed but tabs exist */}
+      {!detailPaneOpen && (
+        <FloatingTabBar
+          openCalls={openCalls}
+          activeCallId={activeCallId}
+          onTabClick={handleFloatingTabClick}
+          onTabClose={handleCloseTab}
+        />
+      )}
     </div>
   );
 };

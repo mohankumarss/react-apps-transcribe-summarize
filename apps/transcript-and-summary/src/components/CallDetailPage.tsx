@@ -22,13 +22,22 @@ export const CallDetailPage: React.FC<CallDetailPageProps> = ({
 }) => {
   const { getThemeClass } = useThemeStyles();
   const [callRecord, setCallRecord] = useState<CallRecord>(initialCallRecord);
-  const [userNotes, setUserNotes] = useState(callRecord.notes || '');
+  const [userNotes, setUserNotes] = useState(initialCallRecord.notes || '');
   const [savingNotes, setSavingNotes] = useState(false);
   const [copySuccess, setCopySuccess] = useState<'transcript' | 'summary' | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [summarySearchTerm, setSummarySearchTerm] = useState('');
 
   const apiService = getCallRecordsService();
+
+  // Sync state when callRecord prop changes (e.g., when switching tabs)
+  useEffect(() => {
+    setCallRecord(initialCallRecord);
+    setUserNotes(initialCallRecord.notes || '');
+    setSearchTerm('');
+    setSummarySearchTerm('');
+    logger.info('Call record updated', { callId: initialCallRecord.id });
+  }, [initialCallRecord.id]);
 
   // Auto-save notes with debouncing
   useEffect(() => {

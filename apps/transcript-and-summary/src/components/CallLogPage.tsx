@@ -138,12 +138,6 @@ export const CallLogPage: React.FC<CallLogPageProps> = ({ onViewCall }) => {
     logger.info('Call record selected for viewing', { callId: row.id });
   }, [onViewCall]);
 
-  // Handle row double click
-  const handleRowDoubleClick = useCallback((row: CallRecord) => {
-    onViewCall(row);
-    logger.info('Call record opened via double-click', { callId: row.id });
-  }, [onViewCall]);
-
   // Handle open in pane - add to tabs
   const handleOpenInPane = useCallback((row: CallRecord) => {
     setOpenCalls(prev => {
@@ -163,6 +157,12 @@ export const CallLogPage: React.FC<CallLogPageProps> = ({ onViewCall }) => {
     logger.info('Call record opened in pane', { callId: row.id });
   }, []);
 
+  // Handle row double click - open in pane
+  const handleRowDoubleClick = useCallback((row: CallRecord) => {
+    handleOpenInPane(row);
+    logger.info('Call record opened in pane via double-click', { callId: row.id });
+  }, [handleOpenInPane]);
+
   // Handle minimize pane (close pane but keep tabs in memory)
   const handleMinimizePane = useCallback(() => {
     setDetailPaneOpen(false);
@@ -175,6 +175,13 @@ export const CallLogPage: React.FC<CallLogPageProps> = ({ onViewCall }) => {
     setOpenCalls([]);
     setActiveCallId(null);
     logger.info('Call detail pane closed and all tabs cleared');
+  }, []);
+
+  // Handle close all tabs from floating tab bar
+  const handleCloseAllTabs = useCallback(() => {
+    setOpenCalls([]);
+    setActiveCallId(null);
+    logger.info('All tabs closed from floating tab bar');
   }, []);
 
   // Handle close individual tab
@@ -422,6 +429,17 @@ export const CallLogPage: React.FC<CallLogPageProps> = ({ onViewCall }) => {
 
       {/* Custom Grid */}
       <div className="call-log-content">
+        {/* Floating Tab Bar - shown when pane is closed but tabs exist */}
+        {!detailPaneOpen && (
+          <FloatingTabBar
+            openCalls={openCalls}
+            activeCallId={activeCallId}
+            onTabClick={handleFloatingTabClick}
+            onTabClose={handleCloseTab}
+            onCloseAll={handleCloseAllTabs}
+          />
+        )}
+
         <Grid
           data={callRecords}
           columns={columns}
@@ -434,9 +452,9 @@ export const CallLogPage: React.FC<CallLogPageProps> = ({ onViewCall }) => {
             sorting: true,
             filtering: { columnFilters: true }
           }}
-          // onRowDoubleClick={(row: CallRecord) => {
-          //   handleRowDoubleClick(row);
-          // }}
+          onRowDoubleClick={(row: CallRecord) => {
+            handleRowDoubleClick(row);
+          }}
           className="call-log-grid"
           emptyComponent={
             <div className="no-records-message">
@@ -472,15 +490,6 @@ export const CallLogPage: React.FC<CallLogPageProps> = ({ onViewCall }) => {
         onSwitchTab={handleSwitchTab}
       />
 
-      {/* Floating Tab Bar - shown when pane is closed but tabs exist */}
-      {!detailPaneOpen && (
-        <FloatingTabBar
-          openCalls={openCalls}
-          activeCallId={activeCallId}
-          onTabClick={handleFloatingTabClick}
-          onTabClose={handleCloseTab}
-        />
-      )}
     </div>
   );
 };

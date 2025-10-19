@@ -139,7 +139,7 @@
       "assets": {
         "js": {
           "sync": [
-            "__federation_expose_App.a6dbcdaa8c1feb24ae70.js"
+            "__federation_expose_App.404bbb269977bc1eb7bf.js"
           ],
           "async": [
             "85.9513353020eb0b5980aa.js",
@@ -149,7 +149,7 @@
         },
         "css": {
           "sync": [
-            "289.6820aae2b48940b83d8c.css"
+            "289.bda80249833866fef425.css"
           ],
           "async": []
         }

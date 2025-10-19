@@ -8,13 +8,15 @@ export interface FloatingTabBarProps {
   activeCallId: string | null;
   onTabClick: (callId: string) => void;
   onTabClose: (callId: string) => void;
+  onCloseAll: () => void;
 }
 
 export const FloatingTabBar: React.FC<FloatingTabBarProps> = ({
   openCalls,
   activeCallId,
   onTabClick,
-  onTabClose
+  onTabClose,
+  onCloseAll
 }) => {
   const { getThemeClass } = useThemeStyles();
 
@@ -63,6 +65,16 @@ export const FloatingTabBar: React.FC<FloatingTabBarProps> = ({
           </button>
         </div>
       ))}
+
+      {/* Close All button */}
+      <button
+        className="floating-tab-close-all-button"
+        onClick={onCloseAll}
+        aria-label="Close all tabs"
+        title="Close all tabs"
+      >
+        ✕ Close All
+      </button>
     </div>
   );
 };

@@ -82,14 +82,8 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
-}
-
-.call-log-content {
-  flex: 1;
-  padding: 0 var(--theme-spacing-lg, 24px);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  padding: 0 var(--theme-spacing-lg, 24px);
 }
 
 .data-grid-wrapper {
@@ -99,6 +93,9 @@
   border-radius: var(--ds-radius-lg);
   overflow: hidden;
   border: 1px solid var(--ds-border-secondary);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .call-log-grid {
@@ -106,6 +103,8 @@
   height: 100%;
   border: none;
   background: var(--ds-bg-primary);
+  flex: 1;
+  min-height: 0;
 }
 
 /* React Data Grid overrides - Modern Design */

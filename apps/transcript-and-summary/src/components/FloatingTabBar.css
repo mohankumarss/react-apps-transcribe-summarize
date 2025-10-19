@@ -8,22 +8,23 @@
 
 /* Floating tab bar container */
 .floating-tab-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: relative;
   display: flex;
   gap: 0;
   padding: 0 12px;
   background: var(--theme-bg-secondary, #f8f9fa);
-  border-top: 1px solid var(--theme-border-primary, #d1d1d1);
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
-  z-index: 998;
+  border-bottom: 1px solid var(--theme-border-primary, #d1d1d1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 50;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
-  max-height: 56px;
-  animation: slideUpFromBottom 300ms ease-out;
+  height: 56px;
+  animation: slideDownFromTop 300ms ease-out;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  width: 100%;
 }
 
 /* Individual floating tab */
@@ -104,10 +105,45 @@
   outline-offset: -2px;
 }
 
-/* Slide up animation */
-@keyframes slideUpFromBottom {
+/* Close All button */
+.floating-tab-close-all-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: var(--theme-text-secondary, #605e5c);
+  cursor: pointer;
+  padding: 12px 12px;
+  min-width: auto;
+  min-height: 44px;
+  border-radius: 4px;
+  transition: all 150ms ease-out;
+  flex-shrink: 0;
+  margin-left: auto;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.floating-tab-close-all-button:hover {
+  background: var(--theme-bg-tertiary, #f0f0f0);
+  color: var(--theme-text-primary, #323130);
+}
+
+.floating-tab-close-all-button:focus {
+  outline: 2px solid var(--theme-primary, #0078d4);
+  outline-offset: -2px;
+}
+
+.floating-tab-close-all-button:active {
+  background: var(--theme-bg-quaternary, #e8e8e8);
+}
+
+/* Slide down animation */
+@keyframes slideDownFromTop {
   from {
-    transform: translateY(100%);
+    transform: translateY(-100%);
     opacity: 0;
   }
   to {
@@ -139,6 +175,12 @@
   .floating-tab-label {
     max-width: 120px;
   }
+
+  .floating-tab-close-all-button {
+    padding: 10px 10px;
+    min-height: 40px;
+    font-size: 13px;
+  }
 }
 
 /* Small Tablet layout (480px - 768px) */
@@ -151,6 +193,12 @@
 
   .floating-tab-label {
     max-width: 100px;
+  }
+
+  .floating-tab-close-all-button {
+    padding: 8px 8px;
+    min-height: 36px;
+    font-size: 12px;
   }
 }
 
@@ -175,6 +223,12 @@
     min-height: 20px;
     font-size: 14px;
   }
+
+  .floating-tab-close-all-button {
+    padding: 8px 6px;
+    min-height: 36px;
+    font-size: 11px;
+  }
 }
 
 /* Respect prefers-reduced-motion */
@@ -184,7 +238,8 @@
   }
 
   .floating-tab,
-  .floating-tab-close-button {
+  .floating-tab-close-button,
+  .floating-tab-close-all-button {
     transition: none;
   }
 }
